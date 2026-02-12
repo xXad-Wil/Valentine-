@@ -7,6 +7,12 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&family=Caveat:wght@700&display=swap');
 
+        :root {
+            --bg-color: #1a1a1a; /* Starts Dark */
+            --card-bg: #2d2d2d;
+            --text-color: #ffffff;
+        }
+
         body {
             display: flex;
             flex-direction: column;
@@ -14,20 +20,29 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
-            background-color: #fff0f3;
+            background-color: var(--bg-color);
             font-family: 'Quicksand', sans-serif;
             overflow: hidden;
+            transition: background-color 2s ease;
+        }
+
+        /* Light Mode class triggered on Yes */
+        body.light-mode {
+            --bg-color: #fff0f3;
+            --card-bg: white;
+            --text-color: #594d5b;
         }
 
         .card {
-            background: white;
+            background: var(--card-bg);
             padding: 2.5rem;
             border-radius: 30px;
-            box-shadow: 0 15px 35px rgba(255, 77, 109, 0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
             text-align: center;
             z-index: 10;
             max-width: 420px;
             position: relative;
+            transition: all 1.5s ease;
         }
 
         h1 { color: #ff4d6d; font-size: 1.8rem; margin-bottom: 20px; }
@@ -50,52 +65,63 @@
         }
 
         #yesBtn { background-color: #ff4d6d; color: white; }
-        #yesBtn:hover { transform: scale(1.1); box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4); }
-
-        /* The button that runs away */
-        #noBtn { 
-            background-color: #594d5b; 
-            color: white; 
-            position: relative;
-        }
+        #noBtn { background-color: #594d5b; color: white; position: relative; }
 
         .celebration {
             display: none;
-            animation: fadeIn 1s ease-in;
+            text-align: center;
         }
 
         .personal-note {
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             line-height: 1.6;
-            color: #594d5b;
+            color: var(--text-color);
             margin-top: 20px;
             font-style: italic;
         }
 
         .romantic-closing {
             font-family: 'Caveat', cursive;
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             color: #ff4d6d;
             margin-top: 15px;
         }
 
-        /* Using your cat image and removing background via mix-blend-mode */
-        .cat-img { 
-            width: 180px; 
-            mix-blend-mode: multiply; /* Helps "remove" white background */
-            margin-bottom: 10px;
+        .cat-img { width: 250px; margin-bottom: 10px; }
+
+        /* Orchid Decorations */
+        .orchid {
+            position: absolute;
+            bottom: -100px;
+            font-size: 50px;
+            transition: transform 3s ease-out, opacity 2s;
+            opacity: 0;
+            z-index: 1;
+        }
+
+        .orchid-left { left: 5%; }
+        .orchid-right { right: 5%; }
+
+        body.light-mode .orchid {
+            opacity: 1;
+            transform: translateY(-150px) rotate(10deg);
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
     </style>
 </head>
 <body>
 
+    <div class="orchid orchid-left">🌸</div>
+    <div class="orchid orchid-left" style="bottom: -150px; left: 10%;">🌺</div>
+    <div class="orchid orchid-right">🌸</div>
+    <div class="orchid orchid-right" style="bottom: -150px; right: 10%;">🌺</div>
+
     <div class="card" id="valentineCard">
-        <img src="https://i.ibb.co/9mYmXvK/cat-thumbs-up.png" class="cat-img" alt="Crying cat thumbs up">
+        <img src="https://i.postimg.cc/85Msy0D1/cat-heart.png" class="cat-img" alt="Cat with heart">
         <h1>Will you be my Valentine? ❤️</h1>
         <div class="btn-container">
             <button id="yesBtn" onclick="showLove()">Yes!</button>
@@ -105,7 +131,7 @@
 
     <div class="celebration" id="thankYou">
         <div class="card">
-            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ3R6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6&ep=v1_gifs_search&rid=giphy.gif" style="width: 200px; border-radius: 20px;" alt="Happy cat">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHR6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6&ep=v1_gifs_search&rid=giphy.gif" style="width: 200px; border-radius: 20px;">
             <p class="personal-note">
                 I am sorry I didn't make this sooner, I didn't want to get someone elses code and wanted to make my own and put my time on it. Despite being busy I'll always have time for you.
             </p>
@@ -116,10 +142,8 @@
     <script>
         function moveButton() {
             const btn = document.getElementById('noBtn');
-            // Logic to move the button within the visible screen
             const x = Math.random() * (window.innerWidth - btn.offsetWidth);
             const y = Math.random() * (window.innerHeight - btn.offsetHeight);
-            
             btn.style.position = 'absolute';
             btn.style.left = x + 'px';
             btn.style.top = y + 'px';
@@ -130,6 +154,10 @@
         }
 
         function showLove() {
+            // Trigger background and flower growth
+            document.body.classList.add('light-mode');
+            
+            // Hide the card and show celebration
             document.getElementById('valentineCard').style.display = 'none';
             document.getElementById('thankYou').style.display = 'block';
         }
