@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Favorite Person</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #ffeff2;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            z-index: 10;
+        }
+
+        h1 { color: #d63384; font-size: 2rem; }
+
+        .btn-container {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        #yesBtn { background-color: #ff4d6d; color: white; }
+        #yesBtn:hover { transform: scale(1.1); background-color: #ff758f; }
+
+        /* This is your "definitely yes" button */
+        #maybeBtn { background-color: #ff8fa3; color: white; }
+
+        .celebration {
+            display: none;
+            text-align: center;
+        }
+
+        img { width: 250px; border-radius: 15px; margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+
+    <div class="card" id="valentineCard">
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHR6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6&ep=v1_gifs_search&rid=giphy.gif" alt="Cute hearts">
+        <h1>Will you be my Valentine? ❤️</h1>
+        <div class="btn-container">
+            <button id="yesBtn" onclick="showLove()">Yes!</button>
+            <button id="maybeBtn" onmouseover="moveButton()" onclick="showLove()">Yes!</button>
+        </div>
+    </div>
+
+    <div class="celebration" id="thankYou">
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ3R6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6&ep=v1_gifs_search&rid=giphy.gif" alt="Happy cat">
+        <h1 style="color: #ff4d6d;">Yay! It's a date! See you on the 14th! 🥰</h1>
+    </div>
+
+    <script>
+        function moveButton() {
+            const btn = document.getElementById('maybeBtn');
+            const x = Math.random() * (window.innerWidth - btn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - btn.offsetHeight);
+            
+            btn.style.position = 'absolute';
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
+            btn.innerText = "OF COURSE!";
+        }
+
+        function showLove() {
+            document.getElementById('valentineCard').style.display = 'none';
+            document.getElementById('thankYou').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
