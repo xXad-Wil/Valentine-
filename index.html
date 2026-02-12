@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For My Favorite Person</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&family=Caveat:wght@700&display=swap');
+
         body {
             display: flex;
             flex-direction: column;
@@ -12,78 +14,119 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
-            background-color: #ffeff2;
-            font-family: 'Arial', sans-serif;
+            background-color: #fff0f3;
+            font-family: 'Quicksand', sans-serif;
             overflow: hidden;
         }
 
         .card {
             background: white;
-            padding: 2rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 2.5rem;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(255, 77, 109, 0.2);
             text-align: center;
             z-index: 10;
+            max-width: 420px;
+            position: relative;
         }
 
-        h1 { color: #d63384; font-size: 2rem; }
+        h1 { color: #ff4d6d; font-size: 1.8rem; margin-bottom: 20px; }
 
         .btn-container {
-            margin-top: 20px;
+            margin-top: 30px;
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 15px;
         }
 
         button {
-            padding: 12px 25px;
+            padding: 15px 30px;
             font-size: 1.1rem;
+            font-weight: 600;
             border: none;
-            border-radius: 10px;
+            border-radius: 50px;
             cursor: pointer;
-            transition: 0.3s;
+            transition: all 0.2s ease;
         }
 
         #yesBtn { background-color: #ff4d6d; color: white; }
-        #yesBtn:hover { transform: scale(1.1); background-color: #ff758f; }
+        #yesBtn:hover { transform: scale(1.1); box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4); }
 
-        /* This is your "definitely yes" button */
-        #maybeBtn { background-color: #ff8fa3; color: white; }
+        /* The button that runs away */
+        #noBtn { 
+            background-color: #594d5b; 
+            color: white; 
+            position: relative;
+        }
 
         .celebration {
             display: none;
-            text-align: center;
+            animation: fadeIn 1s ease-in;
         }
 
-        img { width: 250px; border-radius: 15px; margin-bottom: 15px; }
+        .personal-note {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #594d5b;
+            margin-top: 20px;
+            font-style: italic;
+        }
+
+        .romantic-closing {
+            font-family: 'Caveat', cursive;
+            font-size: 2.2rem;
+            color: #ff4d6d;
+            margin-top: 15px;
+        }
+
+        /* Using your cat image and removing background via mix-blend-mode */
+        .cat-img { 
+            width: 180px; 
+            mix-blend-mode: multiply; /* Helps "remove" white background */
+            margin-bottom: 10px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
 
     <div class="card" id="valentineCard">
-        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHR6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6&ep=v1_gifs_search&rid=giphy.gif" alt="Cute hearts">
+        <img src="https://i.ibb.co/9mYmXvK/cat-thumbs-up.png" class="cat-img" alt="Crying cat thumbs up">
         <h1>Will you be my Valentine? ❤️</h1>
         <div class="btn-container">
             <button id="yesBtn" onclick="showLove()">Yes!</button>
-            <button id="maybeBtn" onmouseover="moveButton()" onclick="showLove()">Yes!</button>
+            <button id="noBtn" onmouseover="moveButton()" onclick="wrongOption()">No</button>
         </div>
     </div>
 
     <div class="celebration" id="thankYou">
-        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ3R6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6&ep=v1_gifs_search&rid=giphy.gif" alt="Happy cat">
-        <h1 style="color: #ff4d6d;">Yay! It's a date! See you on the 14th! 🥰</h1>
+        <div class="card">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ3R6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6Zzh6&ep=v1_gifs_search&rid=giphy.gif" style="width: 200px; border-radius: 20px;" alt="Happy cat">
+            <p class="personal-note">
+                I am sorry I didn't make this sooner, I didn't want to get someone elses code and wanted to make my own and put my time on it. Despite being busy I'll always have time for you.
+            </p>
+            <div class="romantic-closing">See you on the 14th! 🥰</div>
+        </div>
     </div>
 
     <script>
         function moveButton() {
-            const btn = document.getElementById('maybeBtn');
+            const btn = document.getElementById('noBtn');
+            // Logic to move the button within the visible screen
             const x = Math.random() * (window.innerWidth - btn.offsetWidth);
             const y = Math.random() * (window.innerHeight - btn.offsetHeight);
             
             btn.style.position = 'absolute';
             btn.style.left = x + 'px';
             btn.style.top = y + 'px';
-            btn.innerText = "OF COURSE!";
+        }
+
+        function wrongOption() {
+            alert("Wrong option! Try again. 😉");
         }
 
         function showLove() {
