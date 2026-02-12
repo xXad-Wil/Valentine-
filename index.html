@@ -18,11 +18,11 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
             background-color: var(--bg-color);
             font-family: 'Quicksand', sans-serif;
-            overflow: hidden;
+            overflow-x: hidden;
             transition: background-color 2s ease;
         }
 
@@ -34,27 +34,29 @@
 
         .card {
             background: var(--card-bg);
-            padding: 2.5rem;
+            padding: 2rem;
             border-radius: 30px;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
             text-align: center;
             z-index: 10;
-            max-width: 420px;
+            width: 85%;
+            max-width: 400px;
             transition: all 1.5s ease;
         }
 
-        h1 { color: #ff4d6d; font-size: 1.8rem; margin-bottom: 20px; }
+        h1 { color: #ff4d6d; font-size: 1.6rem; margin-bottom: 20px; }
 
         .btn-container {
             margin-top: 30px;
             display: flex;
             justify-content: center;
             gap: 15px;
+            flex-wrap: wrap;
         }
 
         button {
-            padding: 15px 30px;
-            font-size: 1.1rem;
+            padding: 12px 25px;
+            font-size: 1rem;
             font-weight: 600;
             border: none;
             border-radius: 50px;
@@ -65,36 +67,37 @@
         #yesBtn { background-color: #ff4d6d; color: white; }
         #noBtn { background-color: #594d5b; color: white; position: relative; }
 
-        .celebration { display: none; }
+        .celebration { display: none; width: 100%; display: flex; justify-content: center; }
 
         .personal-note {
-            font-size: 1.1rem;
-            line-height: 1.6;
+            font-size: 1rem;
+            line-height: 1.5;
             color: var(--text-color);
-            margin-top: 20px;
+            margin-top: 15px;
             font-style: italic;
         }
 
         .romantic-closing {
             font-family: 'Caveat', cursive;
-            font-size: 2.5rem;
+            font-size: 2rem;
             color: #ff4d6d;
-            margin-top: 15px;
+            margin-top: 10px;
         }
 
         .cat-img { 
-            width: 250px; 
+            width: 100%;
+            max-width: 220px;
             border-radius: 20px;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
 
-        /* --- THE BLOOMING GARDEN OVERLAY --- */
+        /* --- RESPONSIVE GARDEN --- */
         .garden {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
+            height: 100%;
             pointer-events: none;
             z-index: 1;
             opacity: 0;
@@ -107,22 +110,29 @@
             position: absolute;
             display: flex;
             transition: transform 3s cubic-bezier(0.22, 1, 0.36, 1);
-            filter: drop-shadow(2px 2px 5px rgba(0,0,0,0.05));
         }
 
-        /* Grow upwards from off-screen */
         .side-wall { flex-direction: column; top: 0; height: 100%; transform: translateY(100vh); }
         .bottom-wall { bottom: 0; width: 100%; justify-content: space-around; transform: translateY(100vh); }
 
         body.light-mode .side-wall, 
         body.light-mode .bottom-wall { transform: translateY(0); }
 
-        .left-wall { left: 0; padding-left: 20px; }
-        .right-wall { right: 0; padding-right: 20px; }
+        .left-wall { left: 0; padding-left: 5px; }
+        .right-wall { right: 0; padding-right: 5px; }
 
-        .vine { font-size: 70px; margin: 10px 0; }
-        .flower-row { font-size: 80px; }
+        .vine { font-size: 50px; margin: 5px 0; }
+        .flower-row { font-size: 60px; }
 
+        /* MOBILE ADJUSTMENTS */
+        @media (max-width: 600px) {
+            .vine { font-size: 35px; }
+            .flower-row { font-size: 40px; }
+            .left-wall { left: -10px; }
+            .right-wall { right: -10px; }
+            .card { padding: 1.5rem; }
+            h1 { font-size: 1.4rem; }
+        }
     </style>
 </head>
 <body>
@@ -145,8 +155,8 @@
         </div>
 
         <div class="flower-cluster bottom-wall">
-            <div class="flower-row">🌸🌿🌺🌸🌿</div>
-            <div class="flower-row">🌿🌺🌸🌿🌺</div>
+            <div class="flower-row">🌸🌿🌺</div>
+            <div class="flower-row">🌿🌺🌸</div>
         </div>
     </div>
 
@@ -159,7 +169,7 @@
         </div>
     </div>
 
-    <div class="celebration" id="thankYou">
+    <div class="celebration" id="thankYou" style="display:none;">
         <div class="card">
             <img src="https://media.tenor.com/z-eg2uhf-b0AAAAM/peach-cat-kiss.gif" class="cat-img" alt="Kissing cats">
             <p class="personal-note">
@@ -174,7 +184,7 @@
             const btn = document.getElementById('noBtn');
             const x = Math.random() * (window.innerWidth - btn.offsetWidth);
             const y = Math.random() * (window.innerHeight - btn.offsetHeight);
-            btn.style.position = 'absolute';
+            btn.style.position = 'fixed';
             btn.style.left = x + 'px';
             btn.style.top = y + 'px';
         }
@@ -186,7 +196,7 @@
         function showLove() {
             document.body.classList.add('light-mode');
             document.getElementById('valentineCard').style.display = 'none';
-            document.getElementById('thankYou').style.display = 'block';
+            document.getElementById('thankYou').style.display = 'flex';
         }
     </script>
 </body>
